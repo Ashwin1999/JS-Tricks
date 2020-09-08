@@ -1,2 +1,2 @@
-# JS-Projects-Repo
+# JS Projects Repo
 All my JS projects
