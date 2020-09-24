@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+
+    <!-- YT iframe API locked and loaded -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+    <iframe id="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/xv_bwpA_aEA?enablejsapi=1"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe><br>
+
+    <button id="start">Start</button>/<button id="end">End</button>
+
+
+    <span>
+        bookmark range: <span id="s">0</span> to <span id="e">0</span>
+    </span>
+
+
+    <script type="text/javascript">
+        var player;
+        var bookmarks = []
+
+        let startTime = null
+        let endTime = null
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-video', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady() {
+            console.log("hey Im ready");
+        }
+
+        function onPlayerStateChange() {
+            console.log("my state changed");
+        }
+
+        function getTime() {
+            return parseInt(player.getCurrentTime());
+        }
+
+        function validateTimestamp(s, e) {
+            if (e > s) {
+                return true
+            }
+            return false
+        }
+
+        document.getElementById('start').addEventListener('click', function (e) {
+            e.preventDefault();
+            console.log('start clicked')
+            startTime = getTime()
+        })
+        document.getElementById('end').addEventListener('click', function (e) {
+            e.preventDefault();
+            console.log('end clicked')
+            endTime = getTime()
+            if (validateTimestamp(startTime, endTime)) {
+                bookmarks.push({ 'start': startTime, 'end': endTime })
+            }
+            console.log('Your bookmarks:', bookmarks)
+        })
+    </script>
+</body>
+
+</html>
