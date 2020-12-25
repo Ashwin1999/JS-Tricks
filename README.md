@@ -1,2 +1,2 @@
-# JS Projects Repo
-All my JS projects
+# JS Tricks
+All my JS projects and templates
