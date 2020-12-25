@@ -2,6 +2,16 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/User');
 
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
+});
+
 passport.use(
     new GoogleStrategy({
         // get the below two from the google+ api you've created in google cloud projects
@@ -17,6 +27,7 @@ passport.use(
                 if (currentUser) {
                     // user exists
                     console.log('Logged in as ' + currentUser.name);
+                    done(null, currentUser);
                 } else {
                     // create user and save google id to db
                     new User({
@@ -26,6 +37,7 @@ passport.use(
                         imageURL: profile._json.picture,
                     }).save().then((newUser) => {
                         console.log('new user created:\t' + newUser);
+                        done(null, newUser);
                     });
                 }
             })

@@ -4,11 +4,23 @@ require("dotenv/config");
 
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const passportSetup = require("./config/passport-setup")
+const passport = require('passport');
+const passportSetup = require("./config/passport-setup");
 const mongoose = require("mongoose");
+const cookieSession = require('cookie-session');
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// cookieSession
+app.use(cookieSession({
+    maxAge: 30 * process.env.MINUTE,
+    keys: [process.env.COOKIE_KEYS]
+}));
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // IMPORT ROUTES
 const authRoutes = require("./routes/auth");
