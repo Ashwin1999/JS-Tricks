@@ -1,13 +1,13 @@
-// IMPORTS
 const router = require("express").Router();
 const passport = require("passport");
 
 router.get('/login', (req, res) => {
-    res.send('Logging    in with google...');
+    res.send('Logging in with your google account');
 });
 
 router.get('/logout', (req, res) => {
-    res.send('Logging out');
+    req.logout();
+    res.redirect('/auth/login');
 });
 
 // auth with google
@@ -17,8 +17,7 @@ router.get('/google', passport.authenticate('google', {
 
 // callback auth for google
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    res.send('Hello ' + req.user.name);
+    res.redirect('/profile');
 })
 
-// EXPORT THE ROUTER
 module.exports = router;

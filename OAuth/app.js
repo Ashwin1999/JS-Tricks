@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // cookieSession
 app.use(cookieSession({
-    maxAge: 30 * process.env.MINUTE,
+    maxAge: 30 * 60 * 1000,
     keys: [process.env.COOKIE_KEYS]
 }));
 
@@ -24,9 +24,11 @@ app.use(passport.session());
 
 // IMPORT ROUTES
 const authRoutes = require("./routes/auth");
+const profileRoutes = require("./routes/profile");
 
 // MIDDLEWARES
 app.use('/auth', authRoutes);
+app.use('/', profileRoutes)
 
 // DB CONNECTION
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
