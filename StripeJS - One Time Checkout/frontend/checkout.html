@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Surface Go</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row productDiv" id="pid1234">
+            <div class="col">
+                <br>
+                <br>
+                <img src="" class="card-img-top" alt="" id="productImage">
+            </div>
+            <div class="col">
+                <br><br><br>
+                <br><br>
+                <h3 class="display-3" id="productName">
+                    <!-- title goes here -->
+                </h3>
+                <p class="lead" id="productDesc">
+                    <!-- description goes here -->
+                </p>
+                <br>
+                <p type="button" class="btn btn-light">
+                    <!-- cost  goes here -->
+                    Cost <span class="badge bg-secondary" id="productCost"></span>
+                </p>
+                <br>
+                <form action="" method="post" id="purchaseForm">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="productQuant" min="0" max="20">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Buy now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe('pk_test_51HX5QUJ7vFORwjWSqAROYaXW6KqwIWYs2dkk3PF1Cp1pgvlbNhWuq1i7nkawcUsofiNuNZVn75QNN21vfeqWyQTB00JrID4r2m');
+
+        const product = {
+            pid1234: {
+                name: "Microsoft Surface Go",
+                url: "https://images-na.ssl-images-amazon.com/images/I/51NJ-qIUCsL._SL1000_.jpg",
+                description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur rerum veniam eveniet iure molestiae voluptatibus, sint eius ratione? Ex fugiat nobis enim hic.Perferendis cupiditate, molestiae libero nulla assumenda dolores veniam molestias expedita doloremque ut vel ad dolorum ducimus dignissimos.",
+                cost: 549.99 // 549.99
+            }
+        }
+
+        function renderContent() {
+            let pid = document.getElementsByClassName('productDiv')[0].attributes.id.value
+
+            const prod = product[pid];
+
+            document.getElementById('productName').innerHTML = prod.name;
+            document.getElementById('productDesc').innerHTML = prod.description;
+            document.getElementById('productCost').innerHTML = `$${prod.cost}`;
+            document.getElementById('productImage').setAttribute('src', prod.url);
+            document.getElementById('productImage').setAttribute('alt', prod.name);
+        }
+
+        form = document.getElementById('purchaseForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let prod = product[document.getElementsByClassName('productDiv')[0].attributes.id.value];
+            let quant = parseInt(document.getElementById('productQuant').value);
+
+            let submitObj = {
+                ...prod,
+                quantity: quant
+            };
+
+            console.log(submitObj);
+
+            fetch('http://localhost:3030/create-checkout-session', {
+                method: 'POST',
+                body: JSON.stringify(submitObj),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (session) {
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .then(function (result) {
+                    // If `redirectToCheckout` fails due to a browser or network
+                    // error, you should display the localized error message to your
+                    // customer using `error.message`.
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+        });
+
+        renderContent('pid1234');
+    </script>
+</body>
+
+</html>
