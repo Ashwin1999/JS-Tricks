@@ -52,7 +52,24 @@ router.post('/', async (req, res) => {
 
 // c) Update a user
 router.patch('/:id', async (req, res) => {
-    
+    admin
+    .auth()
+    .updateUser(req.params.id, {
+        email: 'modifiedUser@example.com',
+        phoneNumber: '+11234567890',
+        emailVerified: true,
+        password: 'newPassword',
+        displayName: 'Jane Doe',
+        photoURL: 'http://www.example.com/12345678/photo.png',
+        disabled: true,
+    })
+    .then((userRecord) => {
+        // See the UserRecord reference doc for the contents of userRecord.
+        res.json({message: `Successfully updated user: ${userRecord.email}`})
+    })
+    .catch((error) => {
+        res.json({message: error})
+    });
 });
 
 // d) Delete a user
