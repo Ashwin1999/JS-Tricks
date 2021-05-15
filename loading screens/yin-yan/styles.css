@@ -1,0 +1,81 @@
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  height: 100vh;
+  background: lightslategray;
+}
+
+.yinyan {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, black), color-stop(0, white));
+  background: linear-gradient(black 50%, white 0);
+  -webkit-animation: r 2s linear infinite;
+          animation: r 2s linear infinite;
+}
+
+.yinyan:before, .yinyan:after {
+  --i: 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border: solid 1.66667vmin hsl(0, 0%, calc((1 - var(--i)) * 100%));
+  height: 1.66667vmin;
+  border-radius: 50%;
+  -webkit-transform-origin: calc(var(--i) * 100%) 50%;
+          transform-origin: calc(var(--i) * 100%) 50%;
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+  background: hsl(0, 0%, calc(var(--i) * 100%));
+  -webkit-animation: s 1s ease-in-out calc(var(--i) *-1s) infinite alternate;
+          animation: s 1s ease-in-out calc(var(--i) *-1s) infinite alternate;
+  content: "";
+}
+
+.yinyan:after {
+  --i: 1;
+}
+
+@-webkit-keyframes s {
+  to {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+}
+
+@keyframes s {
+  to {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+}
+
+@-webkit-keyframes r {
+  to {
+    -webkit-transform: rotate(1turn);
+            transform: rotate(1turn);
+  }
+}
+
+@keyframes r {
+  to {
+    -webkit-transform: rotate(1turn);
+            transform: rotate(1turn);
+  }
+}
+/*# sourceMappingURL=styles.css.map */

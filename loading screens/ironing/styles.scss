@@ -1,0 +1,240 @@
+@keyframes "iron" {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 24em;
+  }
+  100% {
+    left: 0;
+  }
+}
+@keyframes "load" {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 24em;
+  }
+  100% {
+    width: 0;
+  }
+}
+@keyframes "steam" {
+  0% {
+    opacity: 0;
+    transform: scale(0.75, 0.75);
+  }
+  10% {
+    opacity: 0.5;
+    transform: scale(1.1, 1.1);
+  }
+  20% {
+    opacity: 0;
+    transform: scale(0.75, 0.75);
+  }
+}
+html {
+  background: #d9d9d9;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: #d9d9d9;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#ironing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -5em;
+  margin-left: -15em;
+  width: 30em;
+  height: 10em;
+  background-color: transparent;
+  overflow: hidden;
+}
+#cloth {
+  position: absolute;
+  bottom: 3em;
+  width: 30em;
+  border-bottom: 0.1em solid rgba(34, 34, 34, 0.5);
+  animation: load 3s cubic-bezier(0.87, 0.3, 0.45, 1) infinite;
+}
+#steam_cloud {
+  position: absolute;
+  top: 0.5em;
+  left: 3.8em;
+  width: 2em;
+  height: 2em;
+  background-color: #d9d9d9;
+  opacity: 0;
+  animation: steam 2s ease-in-out 1s infinite;
+}
+#stripe1 {
+  position: absolute;
+  left: -0.1em;
+  bottom: 0.5em;
+  width: 0.8em;
+  height: 0.2em;
+  background-color: #222;
+  transform: rotate(-70deg) skew(-50deg);
+}
+#stripe2 {
+  position: absolute;
+  left: 0.2em;
+  bottom: 0.1em;
+  width: 0.9em;
+  height: 0.2em;
+  background-color: #222;
+  transform: rotate(-25deg) skew(60deg);
+}
+#puff1 {
+  position: absolute;
+  left: 0.3em;
+  bottom: 1em;
+  width: 0.6em;
+  height: 0.6em;
+  background-color: #d9d9d9;
+  border-left: 0.2em solid #222;
+  border-top: 0.2em solid #222;
+  border-bottom: 0.2em solid #222;
+  border-radius: 50%;
+  transform: rotate(40deg) scale(1.2, 1.1);
+}
+#puff2 {
+  position: absolute;
+  left: 0.85em;
+  bottom: 1em;
+  width: 0.6em;
+  height: 0.6em;
+  background-color: #d9d9d9;
+  border-left: 0.2em solid #222;
+  border-top: 0.2em solid #222;
+  border-right: 0.2em solid transparent;
+  border-radius: 50%;
+  transform: rotate(80deg) scale(1.2, 1.2);
+}
+#puff3 {
+  position: absolute;
+  left: 1.2em;
+  bottom: 0.3em;
+  width: 0.6em;
+  height: 0.6em;
+  background-color: #d9d9d9;
+  border-top: 0.2em solid #222;
+  border-right: 0.2em solid #222;
+  border-bottom: 0.2em solid #222;
+  border-radius: 50%;
+  transform: rotate(-10deg) scale(1.2, 1.1);
+}
+#iron {
+  position: absolute;
+  bottom: 2em;
+  left: 0;
+  width: 6em;
+  height: 5em;
+  background-color: #d9d9d9;
+  overflow: hidden;
+  animation: iron 3s cubic-bezier(0.87, 0.3, 0.45, 1) infinite;
+}
+#curve {
+  position: absolute;
+  width: 10em;
+  height: 10em;
+  margin-top: 0.5em;
+  margin-left: -4.7em;
+  background-color: #222;
+  border-radius: 50%;
+  transform: rotateX(30deg);
+  overflow: hidden;
+}
+#grip {
+  position: relative;
+  top: 1.8em;
+  left: 1em;
+  width: 2em;
+  height: 1.2em;
+  background-color: #d9d9d9;
+  border-radius: 35% 45% 20% 15%;
+  transform: rotate(15deg);
+  &:before {
+    position: absolute;
+    content: "";
+    bottom: 0.35em;
+    left: 0.65em;
+    width: 0.75em;
+    height: 0.15em;
+    border-radius: 30% 30% 10% 10%;
+    background-color: #222;
+    transform: rotate(-15deg);
+  }
+  &:after {
+    position: absolute;
+    content: "";
+    bottom: -0.7em;
+    left: 0;
+    height: 1em;
+    width: 2.5em;
+    background-color: #222;
+    transform: rotate(-15deg);
+  }
+}
+#hide1 {
+  position: absolute;
+  top: 0.75em;
+  left: -0.6em;
+  width: 1em;
+  height: 3em;
+  background-color: #d9d9d9;
+  transform: rotate(25deg);
+}
+#hide2 {
+  position: absolute;
+  top: 3em;
+  left: -1.2em;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  transform: rotateY(30deg);
+}
+#hide3 {
+  position: absolute;
+  bottom: -0.25em;
+  right: 0;
+  width: 6em;
+  height: 1.25em;
+  background-color: #d9d9d9;
+}
+#part1 {
+  position: absolute;
+  top: 2.25em;
+  right: 1.9em;
+  width: 1em;
+  height: 1em;
+  background-color: #222;
+  border-radius: 35%;
+  transform: rotate(-5deg);
+}
+#part2 {
+  position: absolute;
+  left: 0.6em;
+  bottom: 1.6em;
+  width: 0.5em;
+  height: 0.5em;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+}
+#basis {
+  position: absolute;
+  bottom: 1.15em;
+  left: 0;
+  width: 5.5em;
+  height: 0.12em;
+  background-color: #d9d9d9;
+  transform: rotateX(20deg);
+}
